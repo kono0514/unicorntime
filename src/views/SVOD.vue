@@ -209,7 +209,12 @@ export default {
     async selectedEpisode(episode) {
       this.selectedEpisodeMedia = await client.fetchMedia(episode.id);
       this.selectedEpisodeMediaFetching = false;
-      [this.selectedVariant] = this.selectedEpisodeMedia;
+      const mnVariant = this.selectedEpisodeMedia.find(i => i.audios[0] === 'mn');
+      if (mnVariant) {
+        this.selectedVariant = mnVariant;
+      } else {
+        [this.selectedVariant] = this.selectedEpisodeMedia;
+      }
     },
     selectedVariant(variant) {
       if (variant) {

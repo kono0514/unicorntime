@@ -134,7 +134,12 @@ export default {
     const item = this.$store.state.movies[this.id];
     if (item) {
       this.item = item;
-      [this.selectedVariant] = this.item.variants;
+      const mnVariant = this.item.variants.find(i => i.audios[0] === 'mn');
+      if (mnVariant) {
+        this.selectedVariant = mnVariant;
+      } else {
+        [this.selectedVariant] = this.item.variants;
+      }
       this.fetchMovieDB(this.title, this.year);
       this.fetchOMDB(this.title, this.year);
     } else {
