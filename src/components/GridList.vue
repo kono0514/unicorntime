@@ -3,20 +3,14 @@
     <h3 class="subtitle has-text-white is-3">
       {{ category.title }}
     </h3>
-    <transition-group
-      name="staggered-fade"
-      tag="div"
-      class="grid-container"
-      v-bind:css="false"
-      v-on:before-enter="beforeEnter"
-      v-on:enter="enter">
+    <div class="grid-container">
       <grid-item
         v-bind:key="item.id"
         v-bind:data-index="index"
         v-for="(item, index) in lazyItems"
         :item="item"
         @click.native="onItemClick(item)" />
-    </transition-group>
+    </div>
 
     <infinite-loading
       @infinite="infiniteHandler"
@@ -36,7 +30,6 @@
 import client from 'api-client';
 import InfiniteLoading from 'vue-infinite-loading';
 import { BreedingRhombusSpinner } from 'epic-spinners';
-import Velocity from 'velocity-animate';
 import { mapState } from 'vuex';
 import GridItem from '@/components/GridItem.vue';
 
@@ -58,20 +51,6 @@ export default {
     'moviesFetched',
   ]),
   methods: {
-    beforeEnter: (el) => {
-      el.style.opacity = 0;
-    },
-    enter(el, done) {
-      const itemsPerPage = this.lazyItems.length >= this.perPage ? this.perPage : this.lazyItems.length;
-      const delay = (el.dataset.index - this.lazyItems.length + itemsPerPage) * 50;
-      setTimeout(() => {
-        Velocity(
-          el,
-          { opacity: 1 },
-          { complete: done },
-        );
-      }, delay);
-    },
     onItemClick(item) {
       if (item.type === 'vod' || item.type === 'svod') {
         // this.$store.commit('addMovieWithVariants', item);
