@@ -69,7 +69,7 @@ export default new Vuex.Store({
       state.movieCatalogueFetched = data;
     },
     addMovie(state, data) {
-      state.movies[data.id] = data;
+      state.movies[data.id] = Object.freeze(data);
     },
     setMoviePosition(state, data) {
       Vue.set(state.moviePositions, data.contentInfoId, data.position);
