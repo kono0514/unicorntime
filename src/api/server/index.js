@@ -22,7 +22,7 @@ const {
 } = tokenObject;
 
 
-const axiosTimeout = proxyServer === '' ? 5000 : 10000;
+const axiosTimeout = proxyServer === '' ? 10000 : 15000;
 
 const oauth = OAuth({
   consumer: {
