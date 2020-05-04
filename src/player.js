@@ -52,21 +52,16 @@ const player = async (name, src, duration = 0, resume = null, contentInfoId = nu
   const shouldSpawnIPC = contentInfoId !== null;
 
   let uniOptions = [
-    '-user-agent',
-    'SEI-RTSP',
-    '-rtsp-transport',
-    'udp',
-    '--demuxer-lavf-o',
-    'max_delay=0',
-    '--force-media-title',
-    name,
+    '-user-agent=SEI-RTSP',
+    '-rtsp-transport=udp',
+    '--demuxer-lavf-o=max_delay=0',
+    `--force-media-title=${name}`,
   ];
 
   if (shouldSpawnIPC) {
     uniOptions = [
       ...uniOptions,
-      '--input-ipc-server',
-      ipcPath,
+      `--input-ipc-server=${ipcPath}`,
       '--msg-level=ipc=v',
     ];
   }
